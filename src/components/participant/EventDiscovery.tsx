@@ -92,7 +92,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
         {filteredEvents.map((event) => {
           const currentStatus = getEventStatus(event.startDate, event.endDate);
           return (
-          <Card key={event._id} className="hover:shadow-lg transition-shadow">
+            <Card key={event._id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
@@ -173,9 +173,9 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
                 )}
               </div>
             </CardContent>
-          </Card>
+            </Card>
           );
-        })
+        })}
       </div>
 
       {filteredEvents.length === 0 && (

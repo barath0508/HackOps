@@ -110,11 +110,11 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
             {events.map((event) => {
               const currentStatus = getEventStatus(event.startDate, event.endDate);
               return (
-              <Card 
-                key={event._id} 
-                className="group hover:shadow-lg transition-all duration-300 border-border/50 cursor-pointer"
-                onClick={() => handleEventClick(event)}
-              >
+                <Card 
+                  key={event._id} 
+                  className="group hover:shadow-lg transition-all duration-300 border-border/50 cursor-pointer"
+                  onClick={() => handleEventClick(event)}
+                >
                 <CardHeader className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className={`w-3 h-3 rounded-full ${getStatusColor(currentStatus)}`}></div>
@@ -164,8 +164,8 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
                     </div>
                   )}
                 </CardContent>
-              </Card>
-            );
+                </Card>
+              );
             })}
           </div>
         </div>
