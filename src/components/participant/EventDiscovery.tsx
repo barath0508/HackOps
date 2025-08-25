@@ -20,10 +20,21 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
   const [trackFilter, setTrackFilter] = useState('all');
   const api = useApi();
 
+  const getEventStatus = (startDate: string, endDate: string) => {
+    const now = new Date();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    if (now < start) return 'upcoming';
+    if (now >= start && now <= end) return 'ongoing';
+    return 'completed';
+  };
+
   const filteredEvents = (events || []).filter(event => {
+    const currentStatus = getEventStatus(event.startDate, event.endDate);
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          event.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || event.status === statusFilter;
+    const matchesStatus = statusFilter === 'all' || currentStatus === statusFilter;
     const matchesTrack = trackFilter === 'all' || event.tracks?.includes(trackFilter);
     return matchesSearch && matchesStatus && matchesTrack;
   });
@@ -40,7 +51,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500';
+      case 'ongoing': return 'bg-green-500';
       case 'upcoming': return 'bg-blue-500';
       case 'completed': return 'bg-gray-500';
       default: return 'bg-gray-500';
@@ -74,7 +85,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="upcoming">Upcoming</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
+            <SelectItem value="ongoing">Ongoing</SelectItem>
             <SelectItem value="completed">Completed</SelectItem>
           </SelectContent>
         </Select>
@@ -94,16 +105,18 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredEvents.map((event) => (
+        {filteredEvents.map((event) => {
+          const currentStatus = getEventStatus(event.startDate, event.endDate);
+          return (
           <Card key={event._id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <CardTitle className="text-lg">{event.title}</CardTitle>
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${getStatusColor(event.status)}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${getStatusColor(currentStatus)}`}></div>
                     <Badge variant="outline" className="text-xs">
-                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                      {currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
                     </Badge>
                   </div>
                 </div>
@@ -157,7 +170,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
                   <Button disabled className="w-full">
                     Already Joined
                   </Button>
-                ) : event.status === 'completed' ? (
+                ) : currentStatus === 'completed' ? (
                   <Button disabled className="w-full">
                     Event Completed
                   </Button>
@@ -177,7 +190,8 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
               </div>
             </CardContent>
           </Card>
-        ))}
+          );
+        })
       </div>
 
       {filteredEvents.length === 0 && (

@@ -12,6 +12,7 @@ import {
   Target
 } from "lucide-react";
 import { useApi } from '@/hooks/useApi';
+import { getEventStatus, getStatusColor } from '@/lib/eventUtils';
 
 interface Event {
   _id: string;
@@ -58,24 +59,7 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
     onEventSelect?.(event._id);
   };
 
-  const getEventStatus = (startDate: string, endDate: string) => {
-    const now = new Date();
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    if (now < start) return 'upcoming';
-    if (now >= start && now <= end) return 'ongoing';
-    return 'completed';
-  };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'ongoing': return 'bg-green-500';
-      case 'upcoming': return 'bg-blue-500';
-      case 'completed': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
