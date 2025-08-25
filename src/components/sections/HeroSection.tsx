@@ -16,7 +16,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 md:py-0">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -27,40 +27,52 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-6 md:space-y-8 animate-fade-in">
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
+            <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight">
               Where Innovation
               <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                 Meets Collaboration
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               Join the ultimate platform for hackathons and tech competitions. Create, collaborate, 
               and compete with developers worldwide in a seamless, feature-rich environment.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg" className="text-lg px-8 py-6" onClick={onGetStarted}>
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
+            <Button 
+              size="lg" 
+              className="text-base md:text-lg px-6 md:px-8 py-4 md:py-6 gradient-primary hover:scale-105 transition-all duration-300" 
+              onClick={onGetStarted}
+            >
               Start Your Journey
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="text-base md:text-lg px-6 md:px-8 py-4 md:py-6 hover:scale-105 transition-all duration-300"
+            >
               Explore Events
             </Button>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-8 md:mt-16 px-4">
             {stats.map((stat, index) => (
-              <Card key={index} className="p-6 bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/80 transition-all duration-300">
+              <Card 
+                key={index} 
+                className="p-4 md:p-6 glass-effect hover:scale-105 transition-all duration-300 animate-scale-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <div className="flex flex-col items-center space-y-2">
-                  <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-full">
-                    <stat.icon className="h-6 w-6 text-white" />
+                  <div className="p-2 md:p-3 bg-gradient-to-br from-primary to-accent rounded-full">
+                    <stat.icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    <p className="text-lg md:text-2xl font-bold text-foreground">{stat.value}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">{stat.label}</p>
                   </div>
                 </div>
               </Card>

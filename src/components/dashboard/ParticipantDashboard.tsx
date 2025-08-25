@@ -55,11 +55,11 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-6 md:space-y-8 animate-fade-in">
+    <div className="p-4 md:p-6 space-y-4 md:space-y-8 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold">Participant Dashboard</h1>
-          <p className="text-base md:text-lg text-muted-foreground font-medium">Build. Submit. Win.</p>
+          <h1 className="text-xl md:text-3xl font-bold">Participant Dashboard</h1>
+          <p className="text-sm md:text-lg text-muted-foreground font-medium">Build. Submit. Win.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <Dialog open={showProjectForm} onOpenChange={setShowProjectForm}>
@@ -96,56 +96,56 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <Card className="animate-slide-up">
-          <CardContent className="p-4 md:p-6">
+        <Card className="animate-slide-up hover:scale-105 transition-all duration-300">
+          <CardContent className="p-3 md:p-6">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="p-2 gradient-primary rounded-xl">
                 <Calendar className="h-4 w-4 md:h-5 md:w-5 text-white" />
               </div>
               <div>
-                <p className="text-xl md:text-2xl font-bold">{activeEvents.length}</p>
+                <p className="text-lg md:text-2xl font-bold">{activeEvents.length}</p>
                 <p className="text-xs md:text-sm text-muted-foreground">Active Events</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="animate-slide-up" style={{animationDelay: '0.1s'}}>
-          <CardContent className="p-4 md:p-6">
+        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.1s'}}>
+          <CardContent className="p-3 md:p-6">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="p-2 bg-gradient-to-r from-accent to-primary rounded-xl">
                 <Trophy className="h-4 w-4 md:h-5 md:w-5 text-white" />
               </div>
               <div>
-                <p className="text-xl md:text-2xl font-bold">{userProjects.length}</p>
+                <p className="text-lg md:text-2xl font-bold">{userProjects.length}</p>
                 <p className="text-xs md:text-sm text-muted-foreground">My Projects</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="animate-slide-up" style={{animationDelay: '0.2s'}}>
-          <CardContent className="p-4 md:p-6">
+        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.2s'}}>
+          <CardContent className="p-3 md:p-6">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl">
                 <Users className="h-4 w-4 md:h-5 md:w-5 text-white" />
               </div>
               <div>
-                <p className="text-xl md:text-2xl font-bold">{totalParticipants}</p>
+                <p className="text-lg md:text-2xl font-bold">{totalParticipants}</p>
                 <p className="text-xs md:text-sm text-muted-foreground">Participants</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="animate-slide-up" style={{animationDelay: '0.3s'}}>
-          <CardContent className="p-4 md:p-6">
+        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.3s'}}>
+          <CardContent className="p-3 md:p-6">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
                 <FileText className="h-4 w-4 md:h-5 md:w-5 text-white" />
               </div>
               <div>
-                <p className="text-xl md:text-2xl font-bold">{upcomingEvents.length}</p>
+                <p className="text-lg md:text-2xl font-bold">{upcomingEvents.length}</p>
                 <p className="text-xs md:text-sm text-muted-foreground">Upcoming</p>
               </div>
             </div>
@@ -163,7 +163,7 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
           <TabsTrigger value="projects" className="text-xs md:text-sm">Projects</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="events" className="mt-6">
+        <TabsContent value="events" className="mt-4 md:mt-6">
           <EventDiscovery user={{ _id: userEmail, email: userEmail }} events={events} onJoinEvent={handleJoinEvent} />
         </TabsContent>
 

@@ -100,7 +100,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background mobile-safe">
+    <div className="min-h-screen bg-background mobile-safe overflow-x-hidden">
       <Routes>
         <Route 
           path="/" 

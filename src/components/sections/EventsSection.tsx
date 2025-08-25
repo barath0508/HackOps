@@ -38,15 +38,19 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [showEventDetails, setShowEventDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
   const api = useApi();
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true);
         const response = await api.getEvents();
-        setEvents(response.slice(0, 6)); // Show only first 6 events
+        setEvents(response.slice(0, 6));
       } catch (error) {
         console.error('Failed to fetch events:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -69,18 +73,42 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
     });
   };
 
+  if (loading) {
+    return (
+      <section className="py-12 md:py-24 bg-gradient-to-b from-background to-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center space-y-4 mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-bold animate-fade-in">
+              Live Events
+              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Loading...
+              </span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-muted rounded-lg h-48"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (events.length === 0) {
     return (
-      <section className="py-24 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-12 md:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Upcoming Events
+          <div className="text-center space-y-4 mb-8 md:mb-16 animate-fade-in">
+            <h2 className="text-2xl md:text-4xl font-bold">
+              Live Events
               <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Join the Innovation
               </span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               No events available at the moment. Check back soon for exciting hackathons!
             </p>
           </div>
@@ -91,29 +119,30 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
 
   return (
     <>
-      <section className="py-24 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-12 md:py-24 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">
+          <div className="text-center space-y-4 mb-8 md:mb-16 animate-fade-in">
+            <h2 className="text-2xl md:text-4xl font-bold">
               Live Events
               <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Join the Innovation
               </span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Discover exciting hackathons and competitions happening right now.
               Click on any event to learn more and register.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {events.map((event, index) => {
               const currentStatus = getEventStatus(event.startDate, event.endDate);
               return (
                 <Card 
                   key={event._id} 
-                  className="group hover:shadow-lg transition-all duration-300 border-border/50 cursor-pointer"
+                  className="group hover:shadow-xl hover:scale-105 transition-all duration-300 border-border/50 cursor-pointer animate-scale-in glass-effect"
                   onClick={() => handleEventClick(event)}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                 <CardHeader className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -172,7 +201,7 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
       </section>
 
       <Dialog open={showEventDetails} onOpenChange={setShowEventDetails}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-in">
           <DialogHeader>
             <DialogTitle className="text-2xl">{selectedEvent?.title}</DialogTitle>
           </DialogHeader>

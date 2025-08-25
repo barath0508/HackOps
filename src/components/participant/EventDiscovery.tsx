@@ -51,8 +51,8 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4">
+    <div className="space-y-4 md:space-y-6 animate-fade-in">
+      <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
@@ -63,7 +63,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
           />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
@@ -74,7 +74,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
           </SelectContent>
         </Select>
         <Select value={trackFilter} onValueChange={setTrackFilter}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by track" />
           </SelectTrigger>
           <SelectContent>
@@ -88,11 +88,11 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
         </Select>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {filteredEvents.map((event) => {
           const currentStatus = getEventStatus(event.startDate, event.endDate);
           return (
-            <Card key={event._id} className="hover:shadow-lg transition-shadow">
+            <Card key={event._id} className="hover:shadow-xl hover:scale-105 transition-all duration-300 animate-scale-in glass-effect" style={{ animationDelay: `${filteredEvents.indexOf(event) * 0.1}s` }}>
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
@@ -179,10 +179,10 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
       </div>
 
       {filteredEvents.length === 0 && (
-        <div className="text-center py-12">
-          <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No events found</h3>
-          <p className="text-muted-foreground">
+        <div className="text-center py-8 md:py-12 animate-fade-in">
+          <Search className="h-10 w-10 md:h-12 md:w-12 mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-base md:text-lg font-semibold mb-2">No events found</h3>
+          <p className="text-sm md:text-base text-muted-foreground px-4">
             Try adjusting your search criteria or check back later for new events.
           </p>
         </div>

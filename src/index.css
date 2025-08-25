@@ -118,19 +118,18 @@ All colors MUST be HSL.
   }
   
   .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.6s ease-out;
   }
   
   .animate-slide-up {
-    animation: slideUp 0.5s ease-out;
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
   }
   
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  @keyframes slideUp {
     from { 
       opacity: 0;
       transform: translateY(20px);
@@ -141,7 +140,66 @@ All colors MUST be HSL.
     }
   }
   
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
   .mobile-safe {
     padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Mobile responsive utilities */
+  @media (max-width: 768px) {
+    .mobile-grid {
+      @apply grid-cols-1 gap-4;
+    }
+    
+    .mobile-text {
+      @apply text-sm;
+    }
+    
+    .mobile-padding {
+      @apply px-4 py-6;
+    }
+    
+    .container {
+      @apply px-4;
+    }
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
   }
 }
