@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Calendar, Users, Trophy, MapPin, Search, Filter } from 'lucide-react';
 import { useApi } from '@/hooks/useApi';
 import { toast } from 'sonner';
+import { getEventStatus, getStatusColor } from '@/lib/eventUtils';
 
 interface EventDiscoveryProps {
   user: any;
@@ -19,16 +20,6 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
   const [statusFilter, setStatusFilter] = useState('all');
   const [trackFilter, setTrackFilter] = useState('all');
   const api = useApi();
-
-  const getEventStatus = (startDate: string, endDate: string) => {
-    const now = new Date();
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    if (now < start) return 'upcoming';
-    if (now >= start && now <= end) return 'ongoing';
-    return 'completed';
-  };
 
   const filteredEvents = (events || []).filter(event => {
     const currentStatus = getEventStatus(event.startDate, event.endDate);
@@ -49,14 +40,7 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'ongoing': return 'bg-green-500';
-      case 'upcoming': return 'bg-blue-500';
-      case 'completed': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
+
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
