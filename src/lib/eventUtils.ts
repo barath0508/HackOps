@@ -10,9 +10,9 @@ export const getEventStatus = (startDate: string, endDate: string): 'upcoming' |
 
 export const getStatusColor = (status: string): string => {
   switch (status) {
-    case 'ongoing': return 'bg-green-500';
-    case 'upcoming': return 'bg-blue-500';
-    case 'completed': return 'bg-gray-500';
+    case 'ongoing': return 'bg-primary';
+    case 'upcoming': return 'bg-cyan-500';
+    case 'completed': return 'bg-red-500';
     default: return 'bg-gray-500';
   }
 };

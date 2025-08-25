@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
 import { 
   Calendar, 
   Users, 
@@ -55,23 +55,23 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-4 md:space-y-8 animate-fade-in">
+    <div className="p-4 md:p-6 space-y-4 md:space-y-8 animate-fade-in matrix-bg">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl md:text-3xl font-bold">Participant Dashboard</h1>
-          <p className="text-sm md:text-lg text-muted-foreground font-medium">Build. Submit. Win.</p>
+          <h1 className="text-xl md:text-3xl font-bold font-mono glitch">{'>'} PARTICIPANT_TERMINAL</h1>
+          <p className="text-sm md:text-lg text-primary font-medium font-mono">// Build. Submit. Win.</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <Dialog open={showProjectForm} onOpenChange={setShowProjectForm}>
             <DialogTrigger asChild>
-              <Button className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cyber-glow hover:bg-primary/90 transition-all duration-300 font-mono">
                 <Plus className="h-4 w-4 mr-2" />
-                Create Project
+                {'>'} CREATE_PROJECT
               </Button>
             </DialogTrigger>
-            <DialogContent className="mx-4">
+            <DialogContent className="mx-4 terminal-border bg-background/95 backdrop-blur-sm">
               <DialogHeader>
-                <DialogTitle>Create New Project</DialogTitle>
+                <DialogTitle className="font-mono text-primary">[CREATE_NEW_PROJECT]</DialogTitle>
               </DialogHeader>
               <ProjectForm userEmail={userEmail} onSuccess={() => setShowProjectForm(false)} />
             </DialogContent>
@@ -79,14 +79,14 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
           
           <Dialog open={showSubmissionForm} onOpenChange={setShowSubmissionForm}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full sm:w-auto terminal-border hover:bg-primary/10 transition-all duration-300 font-mono">
                 <FileText className="h-4 w-4 mr-2" />
-                Submit Project
+                {'>'} SUBMIT_PROJECT
               </Button>
             </DialogTrigger>
-            <DialogContent className="mx-4 max-w-2xl">
+            <DialogContent className="mx-4 max-w-2xl terminal-border bg-background/95 backdrop-blur-sm">
               <DialogHeader>
-                <DialogTitle>Submit Project to Event</DialogTitle>
+                <DialogTitle className="font-mono text-primary">[SUBMIT_PROJECT_TO_EVENT]</DialogTitle>
               </DialogHeader>
               <SubmissionForm userEmail={userEmail} onSuccess={() => setShowSubmissionForm(false)} />
             </DialogContent>
@@ -96,71 +96,63 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <Card className="animate-slide-up hover:scale-105 transition-all duration-300">
-          <CardContent className="p-3 md:p-6">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="p-2 gradient-primary rounded-xl">
-                <Calendar className="h-4 w-4 md:h-5 md:w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-lg md:text-2xl font-bold">{activeEvents.length}</p>
-                <p className="text-xs md:text-sm text-muted-foreground">Active Events</p>
-              </div>
+        <div className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-3 md:p-6">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="p-2 bg-primary/20 border border-primary">
+              <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <p className="text-lg md:text-2xl font-bold font-mono text-primary">{activeEvents.length}</p>
+              <p className="text-xs md:text-sm text-muted-foreground font-mono">[ACTIVE_EVENTS]</p>
+            </div>
+          </div>
+        </div>
         
-        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.1s'}}>
-          <CardContent className="p-3 md:p-6">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="p-2 bg-gradient-to-r from-accent to-primary rounded-xl">
-                <Trophy className="h-4 w-4 md:h-5 md:w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-lg md:text-2xl font-bold">{userProjects.length}</p>
-                <p className="text-xs md:text-sm text-muted-foreground">My Projects</p>
-              </div>
+        <div className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-3 md:p-6" style={{animationDelay: '0.1s'}}>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="p-2 bg-primary/20 border border-primary">
+              <Trophy className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <p className="text-lg md:text-2xl font-bold font-mono text-primary">{userProjects.length}</p>
+              <p className="text-xs md:text-sm text-muted-foreground font-mono">[MY_PROJECTS]</p>
+            </div>
+          </div>
+        </div>
         
-        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.2s'}}>
-          <CardContent className="p-3 md:p-6">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl">
-                <Users className="h-4 w-4 md:h-5 md:w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-lg md:text-2xl font-bold">{totalParticipants}</p>
-                <p className="text-xs md:text-sm text-muted-foreground">Participants</p>
-              </div>
+        <div className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-3 md:p-6" style={{animationDelay: '0.2s'}}>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="p-2 bg-primary/20 border border-primary">
+              <Users className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <p className="text-lg md:text-2xl font-bold font-mono text-primary">{totalParticipants}</p>
+              <p className="text-xs md:text-sm text-muted-foreground font-mono">[PARTICIPANTS]</p>
+            </div>
+          </div>
+        </div>
         
-        <Card className="animate-slide-up hover:scale-105 transition-all duration-300" style={{animationDelay: '0.3s'}}>
-          <CardContent className="p-3 md:p-6">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
-                <FileText className="h-4 w-4 md:h-5 md:w-5 text-white" />
-              </div>
-              <div>
-                <p className="text-lg md:text-2xl font-bold">{upcomingEvents.length}</p>
-                <p className="text-xs md:text-sm text-muted-foreground">Upcoming</p>
-              </div>
+        <div className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-3 md:p-6" style={{animationDelay: '0.3s'}}>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="p-2 bg-primary/20 border border-primary">
+              <FileText className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <p className="text-lg md:text-2xl font-bold font-mono text-primary">{upcomingEvents.length}</p>
+              <p className="text-xs md:text-sm text-muted-foreground font-mono">[UPCOMING]</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="events" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
-          <TabsTrigger value="events" className="text-xs md:text-sm">Events</TabsTrigger>
-          <TabsTrigger value="teams" className="text-xs md:text-sm">Teams</TabsTrigger>
-          <TabsTrigger value="submissions" className="text-xs md:text-sm hidden md:flex">Submissions</TabsTrigger>
-          <TabsTrigger value="updates" className="text-xs md:text-sm hidden md:flex">Updates</TabsTrigger>
-          <TabsTrigger value="projects" className="text-xs md:text-sm">Projects</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto terminal-border bg-card/30 backdrop-blur-sm">
+          <TabsTrigger value="events" className="text-xs md:text-sm font-mono">[EVENTS]</TabsTrigger>
+          <TabsTrigger value="teams" className="text-xs md:text-sm font-mono">[TEAMS]</TabsTrigger>
+          <TabsTrigger value="submissions" className="text-xs md:text-sm hidden md:flex font-mono">[SUBMISSIONS]</TabsTrigger>
+          <TabsTrigger value="updates" className="text-xs md:text-sm hidden md:flex font-mono">[UPDATES]</TabsTrigger>
+          <TabsTrigger value="projects" className="text-xs md:text-sm font-mono">[PROJECTS]</TabsTrigger>
         </TabsList>
 
         <TabsContent value="events" className="mt-4 md:mt-6">
@@ -185,60 +177,56 @@ export const ParticipantDashboard = ({ userEmail = 'user@example.com' }: Partici
               {userProjects.map((project) => {
                 const event = events.find(e => e._id === project.eventId);
                 return (
-                  <Card key={project._id} className="hover:shadow-lg transition-all duration-300 animate-slide-up">
-                    <CardHeader className="pb-3">
+                  <div key={project._id} className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-4 md:p-6">
+                    <div className="pb-3">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
-                        <Badge variant="outline" className="w-fit">{event?.title || 'Unknown Event'}</Badge>
+                        <h3 className="text-base md:text-lg font-bold font-mono text-primary">[{project.title}]</h3>
+                        <div className="terminal-border bg-primary/20 px-2 py-1 text-xs font-mono text-primary w-fit">{event?.title || 'Unknown Event'}</div>
                       </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
+                    </div>
+                    <div className="space-y-4">
+                      <p className="text-sm text-muted-foreground line-clamp-2 font-mono">// {project.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {project.technologies?.slice(0, 3).map((tech, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">{tech}</Badge>
+                          <span key={index} className="terminal-border bg-primary/20 px-2 py-1 text-xs font-mono text-primary">{tech}</span>
                         ))}
                         {project.technologies?.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">+{project.technologies.length - 3}</Badge>
+                          <span className="terminal-border bg-primary/20 px-2 py-1 text-xs font-mono text-primary">+{project.technologies.length - 3}</span>
                         )}
                       </div>
                       <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Users className="h-4 w-4 flex-shrink-0" />
-                          <span className="truncate">Team: {project.teamMembers.join(', ')}</span>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
+                          <Users className="h-4 w-4 flex-shrink-0 text-primary" />
+                          <span className="truncate">[TEAM]: {project.teamMembers.join(', ')}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Clock className="h-4 w-4 flex-shrink-0" />
-                          Submitted: {new Date(project.createdAt).toLocaleDateString()}
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
+                          <Clock className="h-4 w-4 flex-shrink-0 text-primary" />
+                          [SUBMITTED]: {new Date(project.createdAt).toLocaleDateString()}
                         </div>
                       </div>
                       <div className="flex flex-col sm:flex-row gap-2">
                         {project.githubUrl && (
-                          <Button variant="outline" size="sm" className="w-full sm:w-auto" asChild>
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="h-4 w-4 mr-2" />
-                              GitHub
-                            </a>
-                          </Button>
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="terminal-border bg-card/30 hover:bg-primary/10 transition-all duration-300 px-3 py-2 text-sm font-mono w-full sm:w-auto text-center inline-flex items-center justify-center gap-2">
+                            <ExternalLink className="h-4 w-4" />
+                            {'>'} GITHUB
+                          </a>
                         )}
                         {project.demoUrl && (
-                          <Button variant="outline" size="sm" className="w-full sm:w-auto" asChild>
-                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="h-4 w-4 mr-2" />
-                              Live Demo
-                            </a>
-                          </Button>
+                          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="terminal-border bg-card/30 hover:bg-primary/10 transition-all duration-300 px-3 py-2 text-sm font-mono w-full sm:w-auto text-center inline-flex items-center justify-center gap-2">
+                            <ExternalLink className="h-4 w-4" />
+                            {'>'} DEMO
+                          </a>
                         )}
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 );
               })}
               {userProjects.length === 0 && (
-                <div className="col-span-full text-center p-6 md:p-8 text-muted-foreground">
-                  <FileText className="h-10 w-10 md:h-12 md:w-12 mx-auto mb-4 opacity-50" />
-                  <p className="text-sm md:text-base">No submissions yet</p>
-                  <p className="text-xs md:text-sm">Submit your first project to an active event!</p>
+                <div className="col-span-full text-center p-6 md:p-8 text-muted-foreground terminal-border bg-card/30 backdrop-blur-sm">
+                  <FileText className="h-10 w-10 md:h-12 md:w-12 mx-auto mb-4 opacity-50 text-primary" />
+                  <p className="text-sm md:text-base font-mono">[NO_SUBMISSIONS_FOUND]</p>
+                  <p className="text-xs md:text-sm font-mono">// Submit your first project to an active event!</p>
                 </div>
               )}
             </div>

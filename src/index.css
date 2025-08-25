@@ -2,89 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 315 100% 50%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 80%;
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 80% 50%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 262 83% 58%;
-
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
+    --ring: 315 100% 50%;
     --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 262 83% 58%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 262 83% 58%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 262 83% 58%;
   }
 }
 
@@ -92,114 +31,96 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
-
-  html {
-    scroll-behavior: smooth;
+    @apply bg-background text-foreground font-mono;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.08) 0%, transparent 50%);
   }
 }
 
 @layer utilities {
-  .gradient-primary {
-    background: linear-gradient(135deg, hsl(262 83% 58%), hsl(142 76% 36%));
+  .terminal-border {
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
   }
   
-  .gradient-card {
-    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+  .cyber-glow {
+    box-shadow: 
+      0 0 5px #ff00ff,
+      0 0 10px #ff00ff,
+      0 0 15px #ff00ff,
+      0 0 20px #00ffff;
   }
   
-  .glass-effect {
-    backdrop-filter: blur(16px) saturate(180%);
-    background-color: hsl(var(--background) / 0.75);
-    border: 1px solid hsl(var(--border) / 0.3);
+  .matrix-bg {
+    background: hsl(var(--background));
+  }
+  
+  .glitch {
+    animation: glitch 2s infinite;
+    text-shadow: 
+      0.05em 0 0 #ff00ff,
+      -0.05em -0.025em 0 #00ffff,
+      0.025em 0.05em 0 #ffff00;
+  }
+  
+  .typing {
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #ff00ff;
+  }
+  
+  @keyframes glitch {
+    0%, 100% { 
+      transform: translate(0);
+      text-shadow: 0.05em 0 0 #ff00ff, -0.05em -0.025em 0 #00ffff, 0.025em 0.05em 0 #ffff00;
+    }
+    20% { 
+      transform: translate(-2px, 2px);
+      text-shadow: 0.05em 0 0 #00ffff, -0.05em -0.025em 0 #ffff00, 0.025em 0.05em 0 #ff00ff;
+    }
+    40% { 
+      transform: translate(-2px, -2px);
+      text-shadow: 0.05em 0 0 #ffff00, -0.05em -0.025em 0 #ff00ff, 0.025em 0.05em 0 #00ffff;
+    }
+    60% { 
+      transform: translate(2px, 2px);
+      text-shadow: 0.05em 0 0 #ff00ff, -0.05em -0.025em 0 #00ffff, 0.025em 0.05em 0 #ffff00;
+    }
+    80% { 
+      transform: translate(2px, -2px);
+      text-shadow: 0.05em 0 0 #00ffff, -0.05em -0.025em 0 #ffff00, 0.025em 0.05em 0 #ff00ff;
+    }
+  }
+  
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ff00ff; }
   }
   
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.8s ease-out;
   }
   
   .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.4s ease-out;
+    animation: slideUp 0.8s ease-out;
   }
   
   @keyframes fadeIn {
-    from { 
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to { 
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   
   @keyframes slideUp {
-    from { 
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to { 
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .mobile-safe {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  
-  /* Mobile responsive utilities */
-  @media (max-width: 768px) {
-    .mobile-grid {
-      @apply grid-cols-1 gap-4;
-    }
-    
-    .mobile-text {
-      @apply text-sm;
-    }
-    
-    .mobile-padding {
-      @apply px-4 py-6;
-    }
-    
-    .container {
-      @apply px-4;
-    }
-  }
-  
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 0.3);
-    border-radius: 3px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground) / 0.5);
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

@@ -51,39 +51,39 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
   };
 
   return (
-    <div className="space-y-4 md:space-y-6 animate-fade-in">
+    <div className="space-y-4 md:space-y-6 animate-fade-in matrix-bg">
       <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-3 h-4 w-4 text-primary" />
           <Input
-            placeholder="Search events..."
+            placeholder="// Search events..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 terminal-border bg-card/30 backdrop-blur-sm font-mono"
           />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Filter by status" />
+          <SelectTrigger className="w-full sm:w-[180px] terminal-border bg-card/30 backdrop-blur-sm font-mono">
+            <SelectValue placeholder="[STATUS_FILTER]" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="upcoming">Upcoming</SelectItem>
-            <SelectItem value="ongoing">Ongoing</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
+          <SelectContent className="terminal-border bg-card backdrop-blur-sm">
+            <SelectItem value="all">[ALL_STATUS]</SelectItem>
+            <SelectItem value="upcoming">[UPCOMING]</SelectItem>
+            <SelectItem value="ongoing">[ONGOING]</SelectItem>
+            <SelectItem value="completed">[COMPLETED]</SelectItem>
           </SelectContent>
         </Select>
         <Select value={trackFilter} onValueChange={setTrackFilter}>
-          <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="Filter by track" />
+          <SelectTrigger className="w-full sm:w-[180px] terminal-border bg-card/30 backdrop-blur-sm font-mono">
+            <SelectValue placeholder="[TRACK_FILTER]" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Tracks</SelectItem>
-            <SelectItem value="AI/ML">AI/ML</SelectItem>
-            <SelectItem value="Web Development">Web Development</SelectItem>
-            <SelectItem value="Mobile">Mobile</SelectItem>
-            <SelectItem value="Blockchain">Blockchain</SelectItem>
-            <SelectItem value="IoT">IoT</SelectItem>
+          <SelectContent className="terminal-border bg-card backdrop-blur-sm">
+            <SelectItem value="all">[ALL_TRACKS]</SelectItem>
+            <SelectItem value="AI/ML">[AI/ML]</SelectItem>
+            <SelectItem value="Web Development">[WEB_DEV]</SelectItem>
+            <SelectItem value="Mobile">[MOBILE]</SelectItem>
+            <SelectItem value="Blockchain">[BLOCKCHAIN]</SelectItem>
+            <SelectItem value="IoT">[IOT]</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -92,43 +92,41 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
         {filteredEvents.map((event) => {
           const currentStatus = getEventStatus(event.startDate, event.endDate);
           return (
-            <Card key={event._id} className="hover:shadow-xl hover:scale-105 transition-all duration-300 animate-scale-in glass-effect" style={{ animationDelay: `${filteredEvents.indexOf(event) * 0.1}s` }}>
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="space-y-1">
-                  <CardTitle className="text-lg">{event.title}</CardTitle>
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${getStatusColor(currentStatus)}`}></div>
-                    <Badge variant="outline" className="text-xs">
-                      {currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
-                    </Badge>
-                  </div>
+            <div key={event._id} className="terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 animate-slide-up p-6" style={{ animationDelay: `${filteredEvents.indexOf(event) * 0.1}s` }}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className={`w-3 h-3 ${getStatusColor(currentStatus)} border border-primary`}></div>
+                  <span className="text-xs font-mono text-primary border border-primary px-2 py-1">
+                    [{currentStatus.toUpperCase()}]
+                  </span>
                 </div>
+                <h3 className="text-lg font-bold font-mono">
+                  {'>'} {event.title}
+                </h3>
+                <p className="text-muted-foreground line-clamp-2 font-mono text-sm">
+                  // {event.description}
+                </p>
               </div>
-              <CardDescription className="line-clamp-2">
-                {event.description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
+              <div className="space-y-4 mt-4">
+              <div className="space-y-2 font-mono text-sm">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="h-4 w-4 text-primary" />
                   {formatDate(event.startDate)} - {formatDate(event.endDate)}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Users className="h-4 w-4" />
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Users className="h-4 w-4 text-primary" />
                   {event.participants?.length || 0} participants
                   {event.maxParticipants && ` / ${event.maxParticipants}`}
                 </div>
                 {event.location && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <MapPin className="h-4 w-4 text-primary" />
                     {event.location}
                   </div>
                 )}
                 {event.prizePool && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Trophy className="h-4 w-4" />
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Trophy className="h-4 w-4 text-primary" />
                     ${event.prizePool.toLocaleString()} prize pool
                   </div>
                 )}
@@ -137,43 +135,43 @@ const EventDiscovery: React.FC<EventDiscoveryProps> = ({ user, events, onJoinEve
               {event.tracks && event.tracks.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                   {event.tracks.slice(0, 3).map((track: string, index: number) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      {track}
-                    </Badge>
+                    <span key={index} className="text-xs font-mono text-primary border border-primary px-2 py-1">
+                      [{track}]
+                    </span>
                   ))}
                   {event.tracks.length > 3 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{event.tracks.length - 3} more
-                    </Badge>
+                    <span className="text-xs font-mono text-primary border border-primary px-2 py-1">
+                      [+{event.tracks.length - 3}]
+                    </span>
                   )}
                 </div>
               )}
 
               <div className="pt-2">
                 {event.participants?.includes(user._id) ? (
-                  <Button disabled className="w-full">
-                    Already Joined
+                  <Button disabled className="w-full terminal-border bg-primary/20 font-mono">
+                    [ALREADY_JOINED]
                   </Button>
                 ) : currentStatus === 'completed' ? (
-                  <Button disabled className="w-full">
-                    Event Completed
+                  <Button disabled className="w-full terminal-border bg-red-500/20 font-mono">
+                    [EVENT_COMPLETED]
                   </Button>
                 ) : event.maxParticipants && event.participants?.length >= event.maxParticipants ? (
-                  <Button disabled className="w-full">
-                    Event Full
+                  <Button disabled className="w-full terminal-border bg-yellow-500/20 font-mono">
+                    [EVENT_FULL]
                   </Button>
                 ) : (
                   <Button 
                     onClick={() => handleJoinEvent(event._id)}
-                    className="w-full"
+                    className="w-full cyber-glow hover:bg-primary/90 transition-all duration-300 font-mono"
                     disabled={api.loading}
                   >
-                    {api.loading ? 'Joining...' : 'Join Event'}
+                    {api.loading ? '[JOINING...]' : '> JOIN_EVENT'}
                   </Button>
                 )}
               </div>
-            </CardContent>
-            </Card>
+              </div>
+            </div>
           );
         })}
       </div>

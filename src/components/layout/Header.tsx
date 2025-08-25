@@ -30,14 +30,14 @@ export const Header = ({ user, onLogin, onLogout }: HeaderProps) => {
   };
 
   return (
-    <header className="border-b glass-effect sticky top-0 z-50">
+    <header className="border-b border-primary/30 bg-background/80 backdrop-blur-md sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 cursor-pointer" onClick={handleLogoClick}>
-          <div className="p-2 gradient-primary rounded-xl">
-            <Code2 className="h-5 w-5 text-white" />
+          <div className="p-2 terminal-border bg-card">
+            <Code2 className="h-5 w-5 text-primary" />
           </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            HackOps
+          <span className="text-xl font-bold text-primary font-mono glitch">
+            [HACK_OPS]
           </span>
         </div>
 
@@ -72,7 +72,7 @@ export const Header = ({ user, onLogin, onLogout }: HeaderProps) => {
                   <p className="text-sm font-medium">{user.name}</p>
                   <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
                 </div>
-                <div className="h-8 w-8 rounded-full gradient-primary flex items-center justify-center text-white text-sm font-medium">
+                <div className="h-8 w-8 rounded border border-primary bg-primary/20 flex items-center justify-center text-primary text-sm font-medium font-mono">
                   {user.name?.charAt(0)?.toUpperCase() || '?'}
                 </div>
               </div>
@@ -110,7 +110,7 @@ export const Header = ({ user, onLogin, onLogout }: HeaderProps) => {
             {user ? (
               <>
                 <div className="flex items-center gap-3 pb-3 border-b">
-                  <div className="h-10 w-10 rounded-full gradient-primary flex items-center justify-center text-white font-medium">
+                  <div className="h-10 w-10 rounded border border-primary bg-primary/20 flex items-center justify-center text-primary font-medium font-mono">
                     {user.name?.charAt(0)?.toUpperCase() || '?'}
                   </div>
                   <div>

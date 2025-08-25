@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -119,18 +119,20 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
 
   return (
     <>
-      <section className="py-12 md:py-24 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-12 md:py-24 matrix-bg">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-8 md:mb-16 animate-fade-in">
-            <h2 className="text-2xl md:text-4xl font-bold">
-              Live Events
-              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Join the Innovation
-              </span>
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-              Discover exciting hackathons and competitions happening right now.
-              Click on any event to learn more and register.
+            <div className="terminal-border p-6 bg-card/30 backdrop-blur-sm inline-block">
+              <h2 className="text-2xl md:text-4xl font-bold font-mono">
+                {'>'} ACTIVE_CHALLENGES.list()
+                <span className="block text-primary typing">
+                  [LOADING_EVENTS...]
+                </span>
+              </h2>
+            </div>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto font-mono">
+              // Real-time competitive programming challenges
+              <br />// Click to access restricted data
             </p>
           </div>
 
@@ -138,24 +140,24 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
             {events.map((event, index) => {
               const currentStatus = getEventStatus(event.startDate, event.endDate);
               return (
-                <Card 
+                <div 
                   key={event._id} 
-                  className="group hover:shadow-xl hover:scale-105 transition-all duration-300 border-border/50 cursor-pointer animate-scale-in glass-effect"
+                  className="group terminal-border bg-card/30 backdrop-blur-sm hover:cyber-glow transition-all duration-300 cursor-pointer animate-slide-up p-6"
                   onClick={() => handleEventClick(event)}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                <CardHeader className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className={`w-3 h-3 rounded-full ${getStatusColor(currentStatus)}`}></div>
-                    <Badge variant="outline" className="text-xs">
-                      {currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
-                    </Badge>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className={`w-3 h-3 ${getStatusColor(currentStatus)} border border-primary`}></div>
+                      <span className="text-xs font-mono text-primary border border-primary px-2 py-1">
+                        [{currentStatus.toUpperCase()}]
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors font-mono">
+                      {'>'} {event.title}
+                    </h3>
                   </div>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                    {event.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+                  <div className="space-y-4 mt-4">
                   <p className="text-muted-foreground line-clamp-2">
                     {event.description}
                   </p>
@@ -192,8 +194,8 @@ export const EventsSection = ({ onEventSelect, onRegister }: EventsSectionProps)
                       )}
                     </div>
                   )}
-                </CardContent>
-                </Card>
+                  </div>
+                </div>
               );
             })}
           </div>
